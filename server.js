@@ -1,72 +1,98 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Project } = require('ts-morph');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
+const { Project } = require('ts-morph');
 const CORS = require('cors');
 
 const app = express();
 const port = 3001;
 
 app.use(CORS());
+app.use(express.static(path.join(__dirname, 'coverage/Icov-report')));
 app.use(bodyParser.text());
 
 app.post('/generate-tests', (req, res) => {
   const code = req.body;
 
-  // Parse TypeScript code and generate Jest test cases
-  const generatedTests = generateTests(code);
-
-  // Write test cases to a separate file
+  // Write TypeScript code to a separate file
   const codeFilePath = path.join(__dirname, 'code.ts');
-  const testFilePath = path.join(__dirname, 'tests/generated-tests.spec.ts');
   fs.writeFileSync(codeFilePath, code);
-  fs.writeFileSync(testFilePath, generatedTests.join('\n'));
 
-  // Send the path to the frontend
-  res.json({ testFilePath });
+  // Generate Jest test cases
+  const testCases = generateTests(code);
+
+  // Create a temporary file for Jest test cases
+  const tempTestFilePath = path.join(__dirname, 'tests/generated-tests.spec.ts');
+  fs.writeFileSync(tempTestFilePath, testCases.join('\n'));
+
+  // Run tests through Jest and collect coverage
+  // Run tests through Jest and collect coverage
+const coveragePath = path.join(__dirname, 'coverage');
+const jestCommand = `npm test -- --config=jest.config.js --coverage`;
+
+exec(jestCommand, (error, stdout, stderr) => {
+  
+  console.log(`Jest output:\n${stdout}`);
+  console.error(`Jest errors:\n${stderr}`);
+
+  // Read the content of index.html
+  const indexPath = path.join(__dirname, '/coverage/lcov-report/index.html');
+  const indexHtmlContent = fs.readFileSync(indexPath, 'utf-8');
+
+  // Send the HTML content as the response
+  res.send(indexHtmlContent);
+  });
 });
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
+
 function generateTests(code) {
-  const project = new Project({ useInMemoryFileSystem: true });
-  const sourceFile = project.createSourceFile('temp.ts', code);
+  try {
+    const project = new Project({ useInMemoryFileSystem: true });
+    const sourceFile = project.createSourceFile('temp.ts', code);
 
-  const testCases = sourceFile.getFunctions().map((func) => {
-    const functionName = func.getName();
-    const parameters = func.getParameters().map((param) => ({
-      name: param.getName(),
-      type: param.getType().getText(),
-    }));
+    const testCases = sourceFile.getFunctions().map((func) => {
+      const functionName = func.getName();
+      const parameters = func.getParameters().map((param) => ({
+        name: param.getName(),
+        type: param.getType().getText(),
+      }));
 
-    const randomValues = parameters.map((param) => {
-      switch (param.type) {
-        case 'number':
-          return Math.floor(Math.random() * 100);
-        case 'string':
-          return `'${Math.random().toString(36).substring(7)}'`;
-        default:
-          return 'null';
-      }
+      const randomValues = parameters.map((param) => {
+        switch (param.type) {
+          case 'number':
+            return Math.floor(Math.random() * 100);
+          case 'string':
+            return `'${Math.random().toString(36).substring(7)}'`;
+          default:
+            return 'null';
+        }
+      });
+
+      const testCase = `
+        test('${functionName}', () => {
+          const expectedValue = "";
+          expect(${functionName}(${randomValues.join(', ')})).toBe(expectedValue);
+        });
+      `;
+
+      return testCase;
     });
 
-    const testCase = `
-      test('${functionName}', () => {
-        const expectedValue = 10;
-        expect(${functionName}(${randomValues.join(', ')})).toBe(expectedValue);
-      });
-    `;
+    const importStatement = `import { ${sourceFile
+      .getFunctions()
+      .map((func) => func.getName())
+      .join(', ')} } from '../code';`;
 
-    return testCase;
-  });
-
-  const importStatement = `import { ${sourceFile
-    .getFunctions()
-    .map((func) => func.getName())
-    .join(', ')} } from '../code';`;
-
-  return [importStatement, ...testCases];
+    return [importStatement, ...testCases];
+  } catch (error) {
+    console.error('Error generating tests:', error.message);
+    // Return an empty array or handle the error as needed
+    return [];
+  }
 }
