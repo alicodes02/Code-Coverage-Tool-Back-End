@@ -5,12 +5,13 @@ const path = require('path');
 const { exec } = require('child_process');
 const { Project } = require('ts-morph');
 const CORS = require('cors');
+const archiver = require('archiver');
 
 const app = express();
 const port = 3001;
 
 app.use(CORS());
-app.use(express.static(path.join(__dirname, 'coverage/Icov-report')));
+app.use(express.static(path.join(__dirname, 'coverage/lcov-report/')));
 app.use(bodyParser.text());
 
 app.post('/generate-tests', (req, res) => {
@@ -28,23 +29,37 @@ app.post('/generate-tests', (req, res) => {
   fs.writeFileSync(tempTestFilePath, testCases.join('\n'));
 
   // Run tests through Jest and collect coverage
-  // Run tests through Jest and collect coverage
-const coveragePath = path.join(__dirname, 'coverage');
-const jestCommand = `npm test -- --config=jest.config.js --coverage`;
+  const coveragePath = path.join(__dirname, 'coverage');
+  const jestCommand = `npm test -- --config=jest.config.js --coverage`;
 
-exec(jestCommand, (error, stdout, stderr) => {
-  
-  console.log(`Jest output:\n${stdout}`);
-  console.error(`Jest errors:\n${stderr}`);
+  exec(jestCommand, (error, stdout, stderr) => {
+    console.log(`Jest output:\n${stdout}`);
+    console.error(`Jest errors:\n${stderr}`);
 
-  // Read the content of index.html
-  const indexPath = path.join(__dirname, '/coverage/lcov-report/index.html');
-  const indexHtmlContent = fs.readFileSync(indexPath, 'utf-8');
+    const archive = archiver('zip', { zlib: { level: 9 } });
+    const zipFilePath = path.join(__dirname, 'coverage-report.zip');
+    const output = fs.createWriteStream(zipFilePath);
 
-  // Send the HTML content as the response
-  res.send(indexHtmlContent);
+    archive.pipe(output);
+    archive.directory(coveragePath, false);
+    archive.finalize();
+
+    // Set the response content type to ZIP
+    res.setHeader('Content-Type', 'application/zip');
+    // Set the Content-Disposition header to trigger download
+    res.setHeader('Content-Disposition', `attachment; filename=coverage-report.zip`);
+
+    // Stream the ZIP file to the frontend as the response
+    output.on('close', () => {
+      const zipFileContent = fs.readFileSync(zipFilePath);
+      res.send(zipFileContent);
+
+      // Cleanup: Delete the temporary ZIP file
+      fs.unlinkSync(zipFilePath);
+    });
   });
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
@@ -55,6 +70,13 @@ function generateTests(code) {
   try {
     const project = new Project({ useInMemoryFileSystem: true });
     const sourceFile = project.createSourceFile('temp.ts', code);
+
+    // Add export keyword before each function if not already present
+    sourceFile.getFunctions().forEach((func) => {
+      if (!func.hasExportKeyword()) {
+        func.addModifier('export');
+      }
+    });
 
     const testCases = sourceFile.getFunctions().map((func) => {
       const functionName = func.getName();

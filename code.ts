@@ -1,46 +1,54 @@
-// Function to check if a string is a palindrome
-export function isPalindrome(str: string): boolean {
-  const cleanStr = str.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
-  const reversedStr = cleanStr.split('').reverse().join('');
-  return cleanStr === reversedStr;
-}
-
-// Function to generate a random number within a specified range
-export function getRandomNumber(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Function to generate an array of n random numbers within a range
-export function generateRandomNumbers(n: number, min: number, max: number): number[] {
-  return Array.from({ length: n }, () => getRandomNumber(min, max));
-}
-
-// Function to convert temperature from Celsius to Fahrenheit
-export function celsiusToFahrenheit(celsius: number): number {
-  return (celsius * 9) / 5 + 32;
-}
-
-// Function to convert temperature from Fahrenheit to Celsius
-export function fahrenheitToCelsius(fahrenheit: number): number {
-  return ((fahrenheit - 32) * 5) / 9;
-}
-
-// Function to capitalize the first letter of a string
-export function capitalizeFirstLetter(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// Function to filter out duplicate values from an array
-export function removeDuplicates<T>(arr: T[]): T[] {
-  return Array.from(new Set(arr));
-}
-
-// Function to shuffle an array
-export function shuffleArray<T>(arr: T[]): T[] {
-  const shuffledArray = [...arr];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+// Function to check if a number is prime
+function isPrime(num: number): boolean {
+  if (num <= 1) {
+    return false;
   }
-  return shuffledArray;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
 }
+
+// Function to generate an array of prime numbers within a range
+function generatePrimesInRange(start: number, end: number): number[] {
+  const primes: number[] = [];
+  for (let i = start; i <= end; i++) {
+    if (isPrime(i)) {
+      primes.push(i);
+    }
+  }
+  return primes;
+}
+
+// Function to calculate the Fibonacci sequence up to a specified term
+function fibonacci(n: number): number[] {
+  const sequence: number[] = [0, 1];
+  for (let i = 2; i < n; i++) {
+    sequence.push(sequence[i - 1] + sequence[i - 2]);
+  }
+  return sequence;
+}
+
+// Function to find the average of an array of numbers
+function calculateAverage(numbers: number[]): number {
+  if (numbers.length === 0) {
+    return 0;
+  }
+  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  return sum / numbers.length;
+}
+
+// Generate an array of prime numbers between 10 and 50
+const primesInRange = generatePrimesInRange(10, 50);
+console.log('Prime Numbers between 10 and 50:', primesInRange);
+
+// Calculate the Fibonacci sequence up to the 8th term
+const fibonacciSequence = fibonacci(8);
+console.log('Fibonacci Sequence (up to 8th term):', fibonacciSequence);
+
+// Calculate the average of an array of numbers
+const numbersToAverage = [15, 22, 37, 44, 56];
+const average = calculateAverage(numbersToAverage);
+console.log('Average of Numbers:', average);

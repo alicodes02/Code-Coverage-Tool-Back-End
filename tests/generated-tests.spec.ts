@@ -1,49 +1,25 @@
-import { isPalindrome, getRandomNumber, generateRandomNumbers, celsiusToFahrenheit, fahrenheitToCelsius, capitalizeFirstLetter, removeDuplicates, shuffleArray } from '../code';
+import { isPrime, generatePrimesInRange, fibonacci, calculateAverage } from '../code';
 
-        test('isPalindrome', () => {
+        test('isPrime', () => {
           const expectedValue = "";
-          expect(isPalindrome('ljxqmf')).toBe(expectedValue);
+          expect(isPrime(14)).toBe(expectedValue);
         });
       
 
-        test('getRandomNumber', () => {
+        test('generatePrimesInRange', () => {
           const expectedValue = "";
-          expect(getRandomNumber(1, 55)).toBe(expectedValue);
+          expect(generatePrimesInRange(97, 61)).toBe(expectedValue);
         });
       
 
-        test('generateRandomNumbers', () => {
+        test('fibonacci', () => {
           const expectedValue = "";
-          expect(generateRandomNumbers(22, 88, 42)).toBe(expectedValue);
+          expect(fibonacci(85)).toBe(expectedValue);
         });
       
 
-        test('celsiusToFahrenheit', () => {
+        test('calculateAverage', () => {
           const expectedValue = "";
-          expect(celsiusToFahrenheit(17)).toBe(expectedValue);
-        });
-      
-
-        test('fahrenheitToCelsius', () => {
-          const expectedValue = "";
-          expect(fahrenheitToCelsius(91)).toBe(expectedValue);
-        });
-      
-
-        test('capitalizeFirstLetter', () => {
-          const expectedValue = "";
-          expect(capitalizeFirstLetter('oa1pqs')).toBe(expectedValue);
-        });
-      
-
-        test('removeDuplicates', () => {
-          const expectedValue = "";
-          expect(removeDuplicates(null)).toBe(expectedValue);
-        });
-      
-
-        test('shuffleArray', () => {
-          const expectedValue = "";
-          expect(shuffleArray(null)).toBe(expectedValue);
+          expect(calculateAverage(null)).toBe(expectedValue);
         });
       
