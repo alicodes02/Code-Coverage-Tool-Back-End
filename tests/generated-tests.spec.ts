@@ -1,25 +1,61 @@
-import { isPrime, generatePrimesInRange, fibonacci, calculateAverage } from '../code';
+import { fibonacci, exampleUsage } from '../code';
 
-        test('isPrime', () => {
-          const expectedValue = "";
-          expect(isPrime(14)).toBe(expectedValue);
-        });
-      
+      test('fibonacci - Case 1', () => {
+        const expectedValue = "";
+        expect(fibonacci(78)).toBe(expectedValue);
+      });
+    
 
-        test('generatePrimesInRange', () => {
-          const expectedValue = "";
-          expect(generatePrimesInRange(97, 61)).toBe(expectedValue);
-        });
-      
+      test('fibonacci - Case 2', () => {
+        const expectedValue = "";
+        expect(fibonacci(58)).toBe(expectedValue);
+      });
+    
 
-        test('fibonacci', () => {
-          const expectedValue = "";
-          expect(fibonacci(85)).toBe(expectedValue);
-        });
-      
+      test('fibonacci - Case 3', () => {
+        const expectedValue = "";
+        expect(fibonacci(56)).toBe(expectedValue);
+      });
+    
 
-        test('calculateAverage', () => {
-          const expectedValue = "";
-          expect(calculateAverage(null)).toBe(expectedValue);
-        });
-      
+      test('fibonacci - Case 4', () => {
+        const expectedValue = "";
+        expect(fibonacci(34)).toBe(expectedValue);
+      });
+    
+
+      test('fibonacci - Case 5', () => {
+        const expectedValue = "";
+        expect(fibonacci(91)).toBe(expectedValue);
+      });
+    
+
+      test('exampleUsage - Case 1', () => {
+        const expectedValue = "";
+        expect(exampleUsage()).toBe(expectedValue);
+      });
+    
+
+      test('exampleUsage - Case 2', () => {
+        const expectedValue = "";
+        expect(exampleUsage()).toBe(expectedValue);
+      });
+    
+
+      test('exampleUsage - Case 3', () => {
+        const expectedValue = "";
+        expect(exampleUsage()).toBe(expectedValue);
+      });
+    
+
+      test('exampleUsage - Case 4', () => {
+        const expectedValue = "";
+        expect(exampleUsage()).toBe(expectedValue);
+      });
+    
+
+      test('exampleUsage - Case 5', () => {
+        const expectedValue = "";
+        expect(exampleUsage()).toBe(expectedValue);
+      });
+    
