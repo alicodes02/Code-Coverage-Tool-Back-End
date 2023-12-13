@@ -11,6 +11,6 @@ A simple code coverage tool which is built for automating white box testing for 
 5. Now, you can send your code to the backend easily.
 6. View the test cases at backend in tests/generated-tests.spec.ts file.
 
-# As this was a semester project, I'm looking forward to further improve it and any suggesstions or contributions are highly appreciated in this regard.
+## As this was a semester project, I'm looking forward to further improve it and any suggesstions or contributions are highly appreciated in this regard.
 
 ## Thank you so much for visiting this repository, Have a great day :)
