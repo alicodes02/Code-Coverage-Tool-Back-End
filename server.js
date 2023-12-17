@@ -8,11 +8,16 @@ const CORS = require('cors');
 const archiver = require('archiver');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(CORS());
 app.use(express.static(path.join(__dirname, 'coverage/lcov-report/')));
 app.use(bodyParser.text());
+
+app.get('/test', (req, res) => {
+
+  res.status(200).send('API is active and running');
+})
 
 app.post('/generate-tests', (req, res) => {
 

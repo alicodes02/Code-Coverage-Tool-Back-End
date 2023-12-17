@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1701932982667" clover="3.2.0">
-  <project timestamp="1701932982667" name="All files">
-    <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3" elements="21" coveredelements="19" complexity="0" loc="14" ncloc="14" packages="1" files="1" classes="1"/>
-    <file name="code.ts" path="C:\Users\Muhammad Ali\Desktop\SQE-Backend\code.ts">
-      <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
-      <line num="2" count="1" type="stmt"/>
-      <line num="4" count="388" type="cond" truecount="1" falsecount="0"/>
-      <line num="5" count="11" type="stmt"/>
-      <line num="8" count="377" type="cond" truecount="2" falsecount="0"/>
-      <line num="9" count="377" type="stmt"/>
-      <line num="11" count="377" type="stmt"/>
-      <line num="14" count="11" type="cond" truecount="0" falsecount="1"/>
-      <line num="15" count="0" type="stmt"/>
-      <line num="18" count="11" type="stmt"/>
-      <line num="22" count="1" type="stmt"/>
-      <line num="23" count="6" type="stmt"/>
-      <line num="24" count="6" type="stmt"/>
-      <line num="26" count="6" type="stmt"/>
-      <line num="30" count="1" type="stmt"/>
+<coverage generated="1702822180374" clover="3.2.0">
+  <project timestamp="1702822180374" name="All files">
+    <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
+    <file name="code.ts" path="C:\Users\Muhammad Ali\Desktop\Semester 05\Software Quality Engineering\SQE-Backend\code.ts">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="5" type="stmt"/>
     </file>
   </project>
 </coverage>
