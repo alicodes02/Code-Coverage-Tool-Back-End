@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1702822180374" clover="3.2.0">
-  <project timestamp="1702822180374" name="All files">
-    <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
+<coverage generated="1702870493608" clover="3.2.0">
+  <project timestamp="1702870493608" name="All files">
+    <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="6" elements="18" coveredelements="16" complexity="0" loc="11" ncloc="11" packages="1" files="1" classes="1"/>
     <file name="code.ts" path="C:\Users\Muhammad Ali\Desktop\Semester 05\Software Quality Engineering\SQE-Backend\code.ts">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="6"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="5" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="5" type="stmt"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="12" count="5" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="10" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="5" type="stmt"/>
+      <line num="22" count="0" type="stmt"/>
     </file>
   </project>
 </coverage>
