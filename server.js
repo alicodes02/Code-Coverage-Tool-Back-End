@@ -4,13 +4,14 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const { Project } = require('ts-morph');
-const CORS = require('cors');
+const cors = require('cors');
 const archiver = require('archiver');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(CORS());
+app.use(cors());
+
 app.use(express.static(path.join(__dirname, 'coverage/lcov-report/')));
 app.use(bodyParser.text());
 
